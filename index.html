@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f8dce7">
+    <title>Petal Archive — A Little Renaissance Journal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+         :root {
+            --pink: #e8a5bd;
+            --pink-dark: #a96378;
+            --pink-deep: #8f5367;
+            --pink-light: #f9e5ec;
+            --pink-pale: #fff7fa;
+            --cream: #fffaf4;
+            --brown: #936b5e;
+            --brown-light: #c5a397;
+            --ink: #70545a;
+            --gold: #c9a878;
+            --shadow: 0 18px 55px #84556424;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            min-height: 100%;
+        }
+        
+        body {
+            min-height: 100vh;
+            color: var(--ink);
+            overflow: hidden;
+            font-family: 'Nunito', sans-serif;
+            background-color: #fff8fb;
+            background-image: radial-gradient(circle, #e8afc4 1.55px, transparent 1.8px), radial-gradient(circle, #f3d5df 1px, transparent 1.4px), linear-gradient(135deg, #fffafc, #fcebf1 58%, #fff8f3);
+            background-size: 21px 21px, 21px 21px, 100% 100%;
+            background-position: 0 0, 10px 10px, center;
+        }
+        
+        button,
+        input {
+            font: inherit;
+        }
+        
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* REAL FLOWER PHOTOGRAPHS */
+        
+        .flower-photo {
+            position: fixed;
+            z-index: 1;
+            display: block;
+            width: 180px;
+            height: 230px;
+            object-fit: cover;
+            padding: 7px;
+            background: #fffdfb;
+            border: 1px solid #d8a8b7;
+            outline: 1px dashed #c89a91;
+            box-shadow: 0 12px 28px #8a52601e;
+            pointer-events: none;
+            opacity: .95;
+        }
+        
+        .flower-photo.a {
+            left: 2.3%;
+            bottom: -42px;
+            transform: rotate(-8deg);
+            border-radius: 48% 48% 9px 9px;
+        }
+        
+        .flower-photo.b {
+            right: 2.2%;
+            top: -38px;
+            transform: rotate(7deg);
+            border-radius: 48% 48% 9px 9px;
+        }
+        
+        .flower-photo.c {
+            left: 3.8%;
+            top: 19%;
+            width: 132px;
+            height: 166px;
+            transform: rotate(7deg);
+        }
+        
+        .flower-photo.d {
+            right: 4%;
+            bottom: 8%;
+            width: 145px;
+            height: 185px;
+            transform: rotate(-7deg);
+        }
+        
+        .flower-photo.e {
+            right: 20%;
+            top: -118px;
+            width: 118px;
+            height: 152px;
+            transform: rotate(-9deg);
+            opacity: .65;
+        }
+        
+        .ambient {
+            position: fixed;
+            z-index: 2;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, #fff9fb44 18%, #a56d7a13 100%);
+        }
+        /* SECRET NUMBER GATE */
+        
+        .gate {
+            position: fixed;
+            z-index: 100;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            padding: 22px;
+            background-color: #fff7faeF;
+            background-image: radial-gradient(circle, #e8afc4 1.5px, transparent 1.8px), linear-gradient(135deg, #fff8fbeb, #fce9f0ed);
+            background-size: 22px 22px, 100% 100%;
+            transition: opacity .65s ease, visibility .65s ease;
+        }
+        
+        .gate.hide {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        .gate-photo {
+            position: absolute;
+            z-index: 1;
+            width: clamp(115px, 16vw, 205px);
+            height: clamp(145px, 20vw, 255px);
+            object-fit: cover;
+            padding: 7px;
+            background: #fff;
+            border: 1px solid #d7a6b6;
+            box-shadow: 0 12px 32px #905d6d2b;
+            pointer-events: none;
+        }
+        
+        .gate-photo.g1 {
+            left: 5%;
+            top: 8%;
+            transform: rotate(-10deg);
+        }
+        
+        .gate-photo.g2 {
+            right: 6%;
+            top: 10%;
+            transform: rotate(9deg);
+        }
+        
+        .gate-photo.g3 {
+            left: 8%;
+            bottom: 5%;
+            transform: rotate(8deg);
+        }
+        
+        .gate-photo.g4 {
+            right: 7%;
+            bottom: 5%;
+            transform: rotate(-8deg);
+        }
+        
+        .gate-card {
+            position: relative;
+            z-index: 3;
+            width: min(440px, 100%);
+            padding: 35px 34px 30px;
+            text-align: center;
+            border: 2px dashed #d9a7b7;
+            border-radius: 27px;
+            outline: 5px solid #fffdfb;
+            outline-offset: -12px;
+            background-color: #fffaf6;
+            background-image: radial-gradient(circle, #f1d7df 1.1px, transparent 1.5px), linear-gradient(145deg, #fffdfb, #fff5f7);
+            background-size: 17px 17px, 100% 100%;
+            box-shadow: 0 24px 70px #87556830;
+        }
+        
+        .gate-kicker {
+            display: inline-block;
+            padding: 7px 14px;
+            border-radius: 999px;
+            background: #f8e3eb;
+            color: #a76b7e;
+            font: 600 10px 'Fredoka', sans-serif;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        
+        .gate-card h1 {
+            margin: 13px 0 5px;
+            color: var(--pink-dark);
+            font: 400 clamp(43px, 9vw, 58px)/1.08 'Berkshire Swash', cursive;
+            text-shadow: 2px 3px 0 #f8dce6;
+        }
+        
+        .gate-subtitle {
+            color: #936f76;
+            font: 700 14px 'Nunito', sans-serif;
+        }
+        
+        .photo-strip {
+            display: flex;
+            justify-content: center;
+            gap: 9px;
+            margin: 16px auto;
+        }
+        
+        .photo-strip img {
+            width: 67px;
+            height: 56px;
+            object-fit: cover;
+            padding: 3px;
+            background: white;
+            border: 1px solid #e2bfca;
+            box-shadow: 0 5px 12px #85515e18;
+        }
+        
+        .photo-strip img:nth-child(1) {
+            transform: rotate(-5deg);
+            border-radius: 15px 4px 15px 4px;
+        }
+        
+        .photo-strip img:nth-child(2) {
+            transform: translateY(-4px);
+            border-radius: 4px 15px 4px 15px;
+        }
+        
+        .photo-strip img:nth-child(3) {
+            transform: rotate(5deg);
+            border-radius: 15px 4px 15px 4px;
+        }
+        
+        .gate-divider {
+            width: 75px;
+            height: 3px;
+            margin: 17px auto;
+            border-radius: 20px;
+            background: #dfafbd;
+        }
+        
+        .gate-prompt {
+            margin-bottom: 12px;
+            color: #825c68;
+            font: 600 15px 'Fredoka', sans-serif;
+        }
+        
+        .code-display {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 0 auto 16px;
+        }
+        
+        .code-slot {
+            display: grid;
+            place-items: center;
+            width: 34px;
+            height: 42px;
+            border: 1.5px dashed #d6a5b5;
+            border-radius: 11px;
+            background: #fff;
+            color: #a45e77;
+            font: 600 21px 'Fredoka', sans-serif;
+        }
+        
+        .code-slot.filled {
+            border-style: solid;
+            background: #f9e4eb;
+        }
+        
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            width: 240px;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .key {
+            min-height: 42px;
+            border: 1px solid #e3bac8;
+            border-radius: 13px;
+            background: linear-gradient(#fff, #fff5f8);
+            color: #98596f;
+            box-shadow: 0 3px 0 #e7c6d0;
+            font: 600 18px 'Fredoka', sans-serif;
+            cursor: pointer;
+            transition: transform .16s, background .16s, box-shadow .16s;
+        }
+        
+        .key:hover,
+        .key:focus-visible {
+            outline: none;
+            transform: translateY(-2px);
+            background: #f8e1e9;
+        }
+        
+        .key:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 0 #e7c6d0;
+        }
+        
+        .key.utility {
+            background: #f8e9ed;
+            font: 900 9px 'Nunito', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .code-error {
+            min-height: 18px;
+            margin-top: 10px;
+            color: #b45f78;
+            font: 800 11px 'Nunito', sans-serif;
+        }
+        
+        .gate-hint {
+            margin-top: 2px;
+            color: #a18189;
+            font: 700 9px 'Nunito', sans-serif;
+        }
+        
+        .shake {
+            animation: shake .34s ease;
+        }
+        
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-6px);
+            }
+            75% {
+                transform: translateX(6px);
+            }
+        }
+        /* JOURNAL SHELL */
+        
+        .app {
+            position: relative;
+            z-index: 5;
+            min-height: 100vh;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .7s ease;
+        }
+        
+        .app.unlocked {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .topbar {
+            position: fixed;
+            z-index: 25;
+            top: 16px;
+            left: 50%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: min(960px, 90vw);
+            padding: 11px 18px;
+            transform: translateX(-50%);
+            border: 1px solid #bd9289;
+            border-radius: 3px 3px 15px 15px;
+            background-color: #bd9288;
+            background-image: repeating-linear-gradient(45deg, #ffffff21 0 7px, transparent 7px 15px), repeating-linear-gradient(-45deg, #6d4a4020 0 7px, transparent 7px 15px);
+            color: #fffaf6;
+            box-shadow: 0 5px 0 #fff9f5;
+            font: 800 9px 'Nunito', sans-serif;
+            letter-spacing: 1.3px;
+        }
+        
+        .topbar strong {
+            color: white;
+            font: 600 20px 'Fredoka', sans-serif;
+            letter-spacing: .4px;
+            text-shadow: 1px 2px 0 #946b64;
+        }
+        
+        .stage {
+            height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 76px 18px 82px;
+            perspective: 1700px;
+        }
+        
+        .book {
+            position: relative;
+            width: min(970px, 92vw);
+            height: min(650px, 77vh);
+            min-height: 490px;
+            transform-style: preserve-3d;
+            filter: drop-shadow(0 18px 32px #8b53601e);
+        }
+        
+        .cover {
+            position: absolute;
+            z-index: 20;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            text-align: center;
+            border: 2px solid #c995a4;
+            border-radius: 20px;
+            outline: 6px solid #fffaf6;
+            outline-offset: -14px;
+            background: linear-gradient(135deg, #9a5c70d9, #d58fa8bb), url('https://images.unsplash.com/photo-1549048799-482af26246f3?auto=format&fit=crop&w=1600&q=85') center/cover;
+            box-shadow: 0 28px 70px #87515c35;
+            transform-origin: left center;
+            backface-visibility: hidden;
+            transition: transform 1.4s cubic-bezier(.7, 0, .2, 1), opacity .5s ease;
+        }
+        
+        .cover::before {
+            content: '';
+            position: absolute;
+            inset: 22px;
+            border: 1.5px dashed #fff1e9;
+            border-radius: 12px;
+            pointer-events: none;
+        }
+        
+        .cover::after {
+            content: '';
+            position: absolute;
+            inset: 31px;
+            border: 1px solid #fff0f27a;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+        
+        .cover.open {
+            transform: rotateY(-180deg);
+            pointer-events: none;
+        }
+        
+        .cover-content {
+            position: relative;
+            z-index: 2;
+            padding: 30px;
+            color: #fffaf6;
+        }
+        
+        .cover-content small {
+            color: #ffe7ef;
+            font: 600 10px 'Fredoka', sans-serif;
+            letter-spacing: 3px;
+        }
+        
+        .cover-content h2 {
+            margin: 22px 0 13px;
+            color: #fffaf6;
+            font: 400 clamp(62px, 10vw, 104px)/.98 'Berkshire Swash', cursive;
+            text-shadow: 2px 4px 0 #7c4b5d70;
+        }
+        
+        .cover-content p {
+            color: #ffe9ef;
+            font: 600 12px 'Fredoka', sans-serif;
+            letter-spacing: 2.5px;
+        }
+        
+        .cover-line {
+            width: 90px;
+            height: 3px;
+            margin: 24px auto;
+            border-radius: 9px;
+            background: #f5d4cf;
+        }
+        
+        .open-button {
+            padding: 12px 26px;
+            border: 1.5px solid #fff5ee;
+            border-radius: 999px;
+            background: #fff5f02b;
+            color: white;
+            font: 600 10px 'Fredoka', sans-serif;
+            letter-spacing: 1.6px;
+            cursor: pointer;
+            transition: .25s;
+        }
+        
+        .open-button:hover {
+            transform: translateY(-2px);
+            background: #fff8f2;
+            color: #a76570;
+        }
+        
+        .inner {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            border-radius: 19px;
+            background: #fffaf6;
+            box-shadow: var(--shadow);
+        }
+        
+        .inner::before {
+            content: '';
+            position: absolute;
+            z-index: 5;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 24px;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, transparent, #b7778a20, transparent);
+            pointer-events: none;
+        }
+        
+        .inner::after {
+            content: '';
+            position: absolute;
+            z-index: 6;
+            inset: 10px;
+            border: 1.5px dashed #d7aeb4;
+            border-radius: 12px;
+            pointer-events: none;
+        }
+        
+        .page {
+            position: absolute;
+            z-index: 1;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow-y: auto;
+            padding: clamp(30px, 5.5vw, 66px);
+            background-color: #fffaf6;
+            background-image: radial-gradient(circle, #f0dce2 1px, transparent 1.35px), linear-gradient(145deg, #fffdfb, #fff7f5);
+            background-size: 24px 24px, 100% 100%;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateX(32px) rotateY(-4deg);
+            transform-origin: left center;
+            transition: opacity .5s ease, transform .75s cubic-bezier(.2, .7, .2, 1), visibility .5s;
+        }
+        
+        .page.active {
+            z-index: 3;
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateX(0) rotateY(0);
+        }
+        
+        .page.exit-left {
+            z-index: 2;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-35px) rotateY(-7deg);
+        }
+        
+        .page.exit-right {
+            z-index: 2;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(35px) rotateY(7deg);
+        }
+        
+        .eyebrow {
+            display: inline-block;
+            width: fit-content;
+            margin-bottom: 16px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: #f8e3eb;
+            color: #a76b7e;
+            font: 600 10px 'Fredoka', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .page h2 {
+            color: #a76578;
+            font: 600 clamp(40px, 6vw, 68px)/.99 'Fredoka', sans-serif;
+            letter-spacing: -.7px;
+        }
+        
+        .gold-line {
+            width: 68px;
+            height: 3px;
+            margin: 18px 0;
+            border-radius: 9px;
+            background: #d6ae91;
+        }
+        
+        .description {
+            color: #785b5b;
+            font: 700 16px/1.65 'Nunito', sans-serif;
+        }
+        
+        .page-number {
+            position: absolute;
+            right: 30px;
+            bottom: 20px;
+            color: #b17d88;
+            font: 600 9px 'Fredoka', sans-serif;
+            letter-spacing: 1.2px;
+        }
+        
+        .intro,
+        .closing {
+            align-items: center;
+            text-align: center;
+        }
+        
+        .intro .description,
+        .closing .description {
+            max-width: 590px;
+        }
+        
+        .fields {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 22px;
+            width: 100%;
+            margin-top: 28px;
+        }
+        
+        .field {
+            width: 142px;
+            padding-top: 9px;
+            border-top: 2px solid #edc7d2;
+        }
+        
+        .field label {
+            display: block;
+            margin-bottom: 6px;
+            color: #a66f7e;
+            font: 600 9px 'Fredoka', sans-serif;
+            letter-spacing: 1.2px;
+        }
+        
+        .field input {
+            width: 100%;
+            border: 0;
+            border-bottom: 1.5px dashed #d7a2b2;
+            outline: none;
+            background: transparent;
+            color: #985d6f;
+            text-align: center;
+            font: 800 15px 'Nunito', sans-serif;
+        }
+        /* RENAISSANCE PAINTING LAYOUT */
+        
+        .art-layout {
+            display: grid;
+            grid-template-columns: 1fr .95fr;
+            gap: 34px;
+            align-items: center;
+        }
+        
+        .art-frame {
+            position: relative;
+            padding: 9px;
+            border: 1.5px dashed #c995a2;
+            border-radius: 17px;
+            background: #f9e8e8;
+            box-shadow: 0 9px 22px #8c52601a;
+        }
+        
+        .art-frame img {
+            display: block;
+            width: 100%;
+            height: 345px;
+            border-radius: 10px;
+            object-fit: contain;
+            background: #f5ece7;
+        }
+        
+        .art-caption {
+            margin-top: 8px;
+            color: #a16f7a;
+            font: 600 9px 'DM Sans', sans-serif;
+            text-align: center;
+        }
+        
+        .art-text h3 {
+            color: #a76570;
+            font: 400 clamp(30px, 4vw, 44px)/1.04 'Berkshire Swash', cursive;
+        }
+        
+        .artist {
+            margin: 12px 0;
+            color: #a76f7d;
+            font: 600 9px 'Fredoka', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .art-text p {
+            color: #795b58;
+            font: 700 15px/1.62 'Nunito', sans-serif;
+        }
+        
+        .art-fact {
+            margin-top: 15px;
+            padding-top: 11px;
+            border-top: 1px solid #e4c4cb;
+            color: #a15d76;
+            font: 700 13px/1.55 'Nunito', sans-serif;
+        }
+        
+        .flower-corners {
+            display: flex;
+            justify-content: center;
+            gap: 9px;
+            margin-top: 22px;
+        }
+        
+        .flower-corners img {
+            width: 58px;
+            height: 45px;
+            object-fit: cover;
+            padding: 3px;
+            border: 1px solid #dfb5c3;
+            border-radius: 9px;
+            background: white;
+            box-shadow: 0 4px 10px #8c526018;
+        }
+        
+        .closing .fin {
+            margin-top: 17px;
+            color: #a76570;
+            font: 400 23px 'Berkshire Swash', cursive;
+        }
+        /* PAGE CONTROLS */
+        
+        .navigation {
+            position: fixed;
+            z-index: 35;
+            left: 50%;
+            bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 7px 9px;
+            transform: translateX(-50%);
+            border: 1px solid #e2bdc8;
+            border-radius: 999px;
+            background: #fff9f6ed;
+            box-shadow: 0 7px 20px #8c52601c;
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity .45s ease;
+        }
+        
+        .navigation.show {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        
+        .navigation button {
+            padding: 10px 17px;
+            border: 1px solid #bd8393;
+            border-radius: 999px;
+            background: #c17e91;
+            color: #fffaf8;
+            font: 600 10px 'Fredoka', sans-serif;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        
+        .navigation button:hover:not(:disabled) {
+            background: #a76570;
+        }
+        
+        .navigation button:disabled {
+            opacity: .35;
+            cursor: not-allowed;
+        }
+        
+        .counter {
+            min-width: 46px;
+            color: #98616f;
+            font: 600 10px 'Fredoka', sans-serif;
+            text-align: center;
+        }
+        
+        .progress {
+            width: 60px;
+            height: 4px;
+            overflow: hidden;
+            border-radius: 9px;
+            background: #f0d5dd;
+        }
+        
+        .progress-bar {
+            width: 0;
+            height: 100%;
+            border-radius: 9px;
+            background: #c17e91;
+            transition: width .45s ease;
+        }
+        /* MOBILE */
+        
+        @media (max-width: 760px) {
+            .flower-photo.c,
+            .flower-photo.d,
+            .flower-photo.e {
+                display: none;
+            }
+            .flower-photo.a {
+                left: -70px;
+                bottom: -45px;
+                width: 135px;
+                height: 178px;
+                opacity: .72;
+            }
+            .flower-photo.b {
+                right: -70px;
+                top: -38px;
+                width: 135px;
+                height: 178px;
+                opacity: .72;
+            }
+            .gate-photo.g1 {
+                left: -45px;
+                top: 3%;
+                width: 110px;
+                height: 145px;
+            }
+            .gate-photo.g2 {
+                right: -45px;
+                top: 5%;
+                width: 110px;
+                height: 145px;
+            }
+            .gate-photo.g3,
+            .gate-photo.g4 {
+                display: none;
+            }
+            .gate-card {
+                padding: 31px 18px 26px;
+                border-radius: 22px;
+            }
+            .gate-card h1 {
+                font-size: 44px;
+            }
+            .stage {
+                padding: 64px 9px 75px;
+            }
+            .book {
+                width: 95vw;
+                height: 77vh;
+                min-height: 520px;
+            }
+            .page {
+                padding: 30px 24px;
+            }
+            .page h2 {
+                font-size: 42px;
+            }
+            .art-layout {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .art-frame img {
+                height: 190px;
+            }
+            .art-text h3 {
+                font-size: 31px;
+            }
+            .art-text p,
+            .description {
+                font-size: 13.5px;
+            }
+            .art-fact {
+                font-size: 12px;
+                margin-top: 9px;
+                padding-top: 8px;
+            }
+            .art-caption {
+                margin-top: 4px;
+            }
+            .artist {
+                margin: 8px 0;
+            }
+            .topbar {
+                top: 8px;
+                width: 94vw;
+                padding: 9px 11px;
+                font-size: 7px;
+                letter-spacing: .6px;
+            }
+            .topbar strong {
+                font-size: 16px;
+            }
+            .navigation {
+                bottom: 9px;
+                gap: 6px;
+                padding: 6px;
+            }
+            .navigation button {
+                padding: 9px 10px;
+                font-size: 9px;
+            }
+            .progress {
+                width: 34px;
+            }
+            .flower-corners img {
+                width: 48px;
+                height: 35px;
+            }
+        }
+        
+        @media (max-height: 700px) and (min-width: 761px) {
+            .stage {
+                padding-top: 58px;
+                padding-bottom: 65px;
+            }
+            .book {
+                height: 76vh;
+                min-height: 420px;
+            }
+            .art-frame img {
+                height: 270px;
+            }
+            .page {
+                padding-top: 36px;
+                padding-bottom: 36px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- REAL FLOWER PHOTOGRAPHS -->
+
+    <img class="flower-photo a" src="https://images.unsplash.com/photo-1508550808328-72970a7007db?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Pink flowers in bloom" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1549048799-482af26246f3?auto=format&amp;fit=crop&amp;w=900&amp;q=85'">
+
+    <img class="flower-photo b" src="https://images.unsplash.com/photo-1554801077-f8d383c211f0?auto=format&amp;fit=crop&amp;w=900&amp;q=85" alt="Pink peonies in a vase" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1549048799-482af26246f3?auto=format&amp;fit=crop&amp;w=900&amp;q=85'">
+
+    <img class="flower-photo c" src="https://images.unsplash.com/photo-1649738308588-07716edfa020?auto=format&amp;fit=crop&amp;w=700&amp;q=85" alt="Pink roses bouquet" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1508550808328-72970a7007db?auto=format&amp;fit=crop&amp;w=700&amp;q=85'">
+
+    <img class="flower-photo d" src="https://images.unsplash.com/photo-1727520327526-4b435667860a?auto=format&amp;fit=crop&amp;w=700&amp;q=85" alt="Rose bouquet in a vase" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1549048799-482af26246f3?auto=format&amp;fit=crop&amp;w=700&amp;q=85'">
+
+    <img class="flower-photo e" src="https://images.unsplash.com/photo-1680563899402-26c3a712831f?auto=format&amp;fit=crop&amp;w=600&amp;q=85" alt="Pink flower arrangement" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1508550808328-72970a7007db?auto=format&amp;fit=crop&amp;w=600&amp;q=85'">
+
+    <div class="ambient"></div>
+
+    <!-- PASSWORD SCREEN -->
+
+    <section class="gate" id="gate" aria-label="Enter the secret code">
+
+        <img class="gate-photo g1" src="https://images.unsplash.com/photo-1549048799-482af26246f3?auto=format&amp;fit=crop&amp;w=700&amp;q=85" alt="Pink flower bouquet">
+
+        <img class="gate-photo g2" src="https://images.unsplash.com/photo-1554801077-f8d383c211f0?auto=format&amp;fit=crop&amp;w=700&amp;q=85" alt="Pink peonies in a vase">
+
+        <img class="gate-photo g3" src="https://images.unsplash.com/photo-1649738308588-07716edfa020?auto=format&amp;fit=crop&amp;w=700&amp;q=85" alt="Pink roses">
+
+        <img class="gate-photo g4" src="https://images.unsplash.com/photo-1680563899402-26c3a712831f?auto=format&amp;fit=crop&amp;w=700&amp;q=85" alt="Rose bouquet">
+
+        <div class="gate-card" id="codeCard">
+
+            <div class="gate-kicker">a tiny secret garden</div>
+
+            <h1>Petal Archive</h1>
+
+            <p class="gate-subtitle">flowers, art & little stories</p>
+
+            <div class="photo-strip" aria-hidden="true">
+                <img src="https://images.unsplash.com/photo-1508550808328-72970a7007db?auto=format&amp;fit=crop&amp;w=260&amp;q=80" alt="">
+                <img src="https://images.unsplash.com/photo-1549048799-482af26246f3?auto=format&amp;fit=crop&amp;w=260&amp;q=80" alt="">
+                <img src="https://images.unsplash.com/photo-1727520327526-4b435667860a?auto=format&amp;fit=crop&amp;w=260&amp;q=80" alt="">
+            </div>
+
+            <div class="gate-divider"></div>
+
+            <p class="gate-prompt">tap the numbers to unlock</p>
+
+            <div class="code-display" id="codeDisplay" role="img" aria-label="0 of 6 digits entered">
+                <span class="code-slot"></span>
+                <span class="code-slot"></span>
+                <span class="code-slot"></span>
+                <span class="code-slot"></span>
+                <span class="code-slot"></span>
+                <span class="code-slot"></span>
+            </div>
+
+            <!-- NUMBER KEYPAD -->
+
+            <div class="keypad" id="keypad" aria-label="Number keypad">
+
+                <button class="key" type="button" data-digit="1">1</button>
+                <button class="key" type="button" data-digit="2">2</button>
+                <button class="key" type="button" data-digit="3">3</button>
+
+                <button class="key" type="button" data-digit="4">4</button>
+                <button class="key" type="button" data-digit="5">5</button>
+                <button class="key" type="button" data-digit="6">6</button>
+
+                <button class="key" type="button" data-digit="7">7</button>
+                <button class="key" type="button" data-digit="8">8</button>
+                <button class="key" type="button" data-digit="9">9</button>
+
+                <button class="key utility" type="button" data-action="clear">RESET</button>
+                <button class="key" type="button" data-digit="0">0</button>
+                <button class="key utility" type="button" data-action="delete">DELETE</button>
+
+            </div>
+
+            <p class="code-error" id="codeError" role="status" aria-live="polite"></p>
+            <p class="gate-hint">six little numbers, then you are in</p>
+
+        </div>
+    </section>
+
+    <!-- MAIN JOURNAL -->
+
+    <main class="app" id="app">
+
+        <header class="topbar">
+            <strong>PETAL ARCHIVE</strong>
+            <span>MY LITTLE RENAISSANCE COLLECTION</span>
+        </header>
+
+        <div class="stage">
+
+            <div class="book" id="book">
+
+                <!-- COVER -->
+
+                <div class="cover" id="cover">
+
+                    <div class="cover-content">
+
+                        <small>A JOURNAL OF ART & HISTORY</small>
+
+                        <h2>Petal<br>Archive</h2>
+
+                        <p>THE RENAISSANCE COLLECTION</p>
+
+                        <div class="cover-line"></div>
+
+                        <button class="open-button" id="openBook" type="button">
+              OPEN MY JOURNAL
+            </button>
+
+                    </div>
+                </div>
+
+                <!-- JOURNAL PAGES -->
+
+                <div class="inner">
+
+                    <!-- INTRO PAGE -->
+
+                    <section class="page intro active">
+
+                        <div class="eyebrow">A LITTLE JOURNEY THROUGH ART</div>
+
+                        <h2>Where Art<br>Blooms Forever</h2>
+
+                        <div class="gold-line"></div>
+
+                        <p class="description">
+                            A little collection of Renaissance masterpieces, remarkable artists, and stories that have travelled through time. Think of it as a tiny scrapbook, filled with art and pretty details.
+                        </p>
+
+                        <div class="fields">
+
+                            <div class="field">
+                                <label>NAME</label>
+                                <input type="text" placeholder="your name">
+                            </div>
+
+                            <div class="field">
+                                <label>CLASS</label>
+                                <input type="text" placeholder="your class">
+                            </div>
+
+                            <div class="field">
+                                <label>SUBJECT</label>
+                                <input type="text" value="History">
+                            </div>
+
+                        </div>
+
+                        <div class="flower-corners" aria-hidden="true">
+                            <img src="https://images.unsplash.com/photo-1508550808328-72970a7007db?auto=format&amp;fit=crop&amp;w=220&amp;q=75" alt="">
+                            <img src="https://images.unsplash.com/photo-1549048799-482af26246f3?auto=format&amp;fit=crop&amp;w=220&amp;q=75" alt="">
+                            <img src="https://images.unsplash.com/photo-1727520327526-4b435667860a?auto=format&amp;fit=crop&amp;w=220&amp;q=75" alt="">
+                        </div>
+
+                        <span class="page-number"></span>
+
+                    </section>
+
+                    <!-- RENAISSANCE HISTORY -->
+
+                    <section class="page">
+
+                        <div class="eyebrow">CHAPTER 01 · THE HISTORICAL PERIOD</div>
+
+                        <h2>The Rebirth<br>of Beauty</h2>
+
+                        <div class="gold-line"></div>
+
+                        <p class="description">
+                            The Renaissance was a period of cultural, artistic, and intellectual revival that began in Italy during the 14th century and gradually spread across Europe.
+                        </p>
+
+                        <br>
+
+                        <p class="description">
+                            Inspired by ancient Greek and Roman civilizations, artists explored human anatomy, perspective, classical mythology, nature, and human emotion. Their curiosity changed the way people understood art and the world around them.
+                        </p>
+
+                        <span class="page-number"></span>
+
+                    </section>
+
+                    <!-- MONA LISA -->
+
+                    <section class="page">
+
+                        <div class="eyebrow">CHAPTER 02 · THE MYSTERIOUS PORTRAIT</div>
+
+                        <div class="art-layout">
+
+                            <div class="art-frame">
+
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Mona_Lisa.jpg/960px-Mona_Lisa.jpg" alt="Mona Lisa by Leonardo da Vinci" loading="eager">
+
+                                <div class="art-caption">
+                                    Mona Lisa · oil on poplar panel
+                                </div>
+
+                            </div>
+
+                            <div class="art-text">
+
+                                <h3>Mona Lisa</h3>
+
+                                <div class="artist">
+                                    LEONARDO DA VINCI · C. 1503–1519
+                                </div>
+
+                                <div class="gold-line"></div>
+
+                                <p>
+                                    This famous portrait shows a woman with a calm expression and a mysterious, softly smiling face. Leonardo used a technique called <i>sfumato</i>, blending light and shadow so gently that the edges seem to disappear.
+                                </p>
+
+                                <div class="art-fact">
+                                    Little detail: The sitter is widely identified as Lisa Gherardini, a woman from Florence.
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <span class="page-number"></span>
+
+                    </section>
+
+                    <!-- THE BIRTH OF VENUS -->
+
+                    <section class="page">
+
+                        <div class="eyebrow">CHAPTER 03 · CLASSICAL MYTHOLOGY</div>
+
+                        <div class="art-layout">
+
+                            <div class="art-frame">
+
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Botticelli_Venus.jpg/1280px-Botticelli_Venus.jpg" alt="The Birth of Venus by Sandro Botticelli" loading="eager">
+
+                                <div class="art-caption">
+                                    The Birth of Venus · tempera on canvas
+                                </div>
+
+                            </div>
+
+                            <div class="art-text">
+
+                                <h3>The Birth of Venus</h3>
+
+                                <div class="artist">
+                                    SANDRO BOTTICELLI · C. 1485
+                                </div>
+
+                                <div class="gold-line"></div>
+
+                                <p>
+                                    The painting shows Venus, the Roman goddess of love and beauty, arriving at the shore on a giant shell. Zephyrus and Aura blow her toward land while a woman waits with a cloak.
+                                </p>
+
+                                <div class="art-fact">
+                                    Little detail: The story comes from classical mythology, which became a favourite source of inspiration for Renaissance artists.
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <span class="page-number"></span>
+
+                    </section>
+
+                    <!-- THE CREATION OF ADAM -->
+
+                    <section class="page">
+
+                        <div class="eyebrow">CHAPTER 04 · DIVINE CREATION</div>
+
+                        <div class="art-layout">
+
+                            <div class="art-frame">
+
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/The_Creation_of_Adam_by_Michelangelo.JPG/1280px-The_Creation_of_Adam_by_Michelangelo.JPG" alt="The Creation of Adam by Michelangelo" loading="eager">
+
+                                <div class="art-caption">
+                                    The Creation of Adam · Sistine Chapel ceiling
+                                </div>
+
+                            </div>
+
+                            <div class="art-text">
+
+                                <h3>The Creation of Adam</h3>
+
+                                <div class="artist">
+                                    MICHELANGELO · C. 1508–1512
+                                </div>
+
+                                <div class="gold-line"></div>
+
+                                <p>
+                                    This fresco is part of the Sistine Chapel ceiling. It depicts the biblical moment when God gives life to Adam, with their hands reaching toward each other.
+                                </p>
+
+                                <div class="art-fact">
+                                    Little detail: The small gap between their fingers has become one of the most recognisable images in Western art.
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <span class="page-number"></span>
+
+                    </section>
+
+                    <!-- THE SCHOOL OF ATHENS -->
+
+                    <section class="page">
+
+                        <div class="eyebrow">CHAPTER 05 · KNOWLEDGE & PHILOSOPHY</div>
+
+                        <div class="art-layout">
+
+                            <div class="art-frame">
+
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/The_School_of_Athens_by_Raffaello_Sanzio_da_Urbino_in_Vatican.jpg/1280px-The_School_of_Athens_by_Raffaello_Sanzio_da_Urbino_in_Vatican.jpg" alt="The School of Athens by Raphael" loading="eager">
+
+                                <div class="art-caption">
+                                    The School of Athens · fresco
+                                </div>
+
+                            </div>
+
+                            <div class="art-text">
+
+                                <h3>The School of Athens</h3>
+
+                                <div class="artist">
+                                    RAPHAEL · C. 1509–1511
+                                </div>
+
+                                <div class="gold-line"></div>
+
+                                <p>
+                                    This fresco brings together famous philosophers and thinkers of ancient Greece. At the centre are Plato and Aristotle, surrounded by scholars discussing philosophy, mathematics, and knowledge.
+                                </p>
+
+                                <div class="art-fact">
+                                    Little detail: Raphael included portraits of other Renaissance artists among the philosophers.
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <span class="page-number"></span>
+
+                    </section>
+
+                    <!-- ARNOLFINI PORTRAIT -->
+
+                    <section class="page">
+
+                        <div class="eyebrow">CHAPTER 06 · SYMBOLISM & PORTRAITURE</div>
+
+                        <div class="art-layout">
+
+                            <div class="art-frame">
+
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Van_Eyck_-_Arnolfini_Portrait.jpg/960px-Van_Eyck_-_Arnolfini_Portrait.jpg" alt="The Arnolfini Portrait by Jan van Eyck" loading="eager">
+
+                                <div class="art-caption">
+                                    The Arnolfini Portrait · 1434
+                                </div>
+
+                            </div>
+
+                            <div class="art-text">
+
+                                <h3>The Arnolfini Portrait</h3>
+
+                                <div class="artist">
+                                    JAN VAN EYCK · 1434
+                                </div>
+
+                                <div class="gold-line"></div>
+
+                                <p>
+                                    This detailed painting shows a man and a woman standing inside a room. It is admired for its realistic objects, rich textures, reflective mirror, and careful use of light.
+                                </p>
+
+                                <div class="art-fact">
+                                    Little detail: The small convex mirror in the background reflects the room and extra figures.
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <span class="page-number"></span>
+
+                    </section>
+
+                    <!-- CLOSING PAGE -->
+
+                    <section class="page closing">
+
+                        <div class="eyebrow">THE LAST LITTLE PAGE</div>
+
+                        <h2>Every painting<br>holds a story.</h2>
+
+                        <div class="gold-line"></div>
+
+                        <p class="description">
+                            Through every brushstroke, every expression, and every tiny detail, the Renaissance reminds us that beautiful things can stay with us for centuries.
+                        </p>
+
+                        <p class="fin">
+                            Fin. See you in the next chapter.
+                        </p>
+
+                        <div class="flower-corners" aria-hidden="true">
+                            <img src="https://images.unsplash.com/photo-1508550808328-72970a7007db?auto=format&amp;fit=crop&amp;w=220&amp;q=75" alt="">
+                            <img src="https://images.unsplash.com/photo-1549048799-482af26246f3?auto=format&amp;fit=crop&amp;w=220&amp;q=75" alt="">
+                            <img src="https://images.unsplash.com/photo-1727520327526-4b435667860a?auto=format&amp;fit=crop&amp;w=220&amp;q=75" alt="">
+                        </div>
+
+                        <span class="page-number"></span>
+
+                    </section>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- NAVIGATION -->
+
+        <nav class="navigation" id="navigation" aria-label="Journal pages">
+
+            <button type="button" id="previous">PREVIOUS</button>
+
+            <span class="counter" id="counter">01 / 08</span>
+
+            <div class="progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <button type="button" id="next">NEXT</button>
+
+        </nav>
+
+    </main>
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+        'use strict';
+
+        // PASSWORD: keep it as text to preserve the first zero.
+        const ACCESS_CODE = '010203';
+
+        const gate = document.getElementById('gate');
+        const codeCard = document.getElementById('codeCard');
+        const codeDisplay = document.getElementById('codeDisplay');
+        const codeSlots = Array.from(
+            document.querySelectorAll('.code-slot')
+        );
+
+        const keypad = document.getElementById('keypad');
+        const codeError = document.getElementById('codeError');
+        const app = document.getElementById('app');
+
+        let enteredCode = '';
+        let isCheckingCode = false;
+
+        function renderCode() {
+            codeSlots.forEach(function(slot, index) {
+                const filled = index < enteredCode.length;
+
+                slot.textContent = filled ? '•' : '';
+                slot.classList.toggle('filled', filled);
+            });
+
+            codeDisplay.setAttribute(
+                'aria-label',
+                enteredCode.length + ' of 6 digits entered'
+            );
+        }
+
+        function unlockJournal() {
+            codeError.textContent = '';
+
+            gate.classList.add('hide');
+            app.classList.add('unlocked');
+
+            window.setTimeout(function() {
+                gate.hidden = true;
+            }, 700);
+        }
+
+        function checkCode() {
+
+            if (enteredCode === ACCESS_CODE) {
+
+                codeError.textContent = 'Yay, the journal is open!';
+
+                window.setTimeout(unlockJournal, 180);
+
+                return;
+            }
+
+            codeError.textContent = 'Not quite, try the numbers once more.';
+
+            keypad.classList.add('shake');
+            codeCard.classList.add('shake');
+
+            window.setTimeout(function() {
+
+                enteredCode = '';
+
+                renderCode();
+
+                keypad.classList.remove('shake');
+                codeCard.classList.remove('shake');
+
+                codeError.textContent = '';
+
+                isCheckingCode = false;
+
+            }, 750);
+        }
+
+        function pressDigit(digit) {
+
+            if (
+                isCheckingCode ||
+                gate.hidden ||
+                gate.classList.contains('hide') ||
+                enteredCode.length >= 6
+            ) {
+                return;
+            }
+
+            enteredCode += digit;
+
+            renderCode();
+
+            if (enteredCode.length === 6) {
+
+                isCheckingCode = true;
+
+                window.setTimeout(checkCode, 140);
+            }
+        }
+
+        // NUMBER BUTTONS
+
+        keypad.addEventListener('click', function(event) {
+
+            const button = event.target.closest('button');
+
+            if (!button || isCheckingCode) return;
+
+            if (button.dataset.digit !== undefined) {
+
+                pressDigit(String(button.dataset.digit));
+
+            } else if (button.dataset.action === 'clear') {
+
+                enteredCode = '';
+                codeError.textContent = '';
+
+                renderCode();
+
+            } else if (button.dataset.action === 'delete') {
+
+                enteredCode = enteredCode.slice(0, -1);
+                codeError.textContent = '';
+
+                renderCode();
+            }
+
+        });
+
+        // OPTIONAL KEYBOARD SUPPORT
+
+        document.addEventListener('keydown', function(event) {
+
+            if (gate.hidden || gate.classList.contains('hide')) return;
+
+            if (/^[0-9]$/.test(event.key)) {
+                pressDigit(event.key);
+            }
+
+            if (event.key === 'Backspace' && !isCheckingCode) {
+
+                enteredCode = enteredCode.slice(0, -1);
+
+                codeError.textContent = '';
+
+                renderCode();
+            }
+
+            if (event.key === 'Escape' && !isCheckingCode) {
+
+                enteredCode = '';
+
+                codeError.textContent = '';
+
+                renderCode();
+            }
+
+        });
+
+        // JOURNAL PAGE CONTROLS
+
+        const cover = document.getElementById('cover');
+        const openButton = document.getElementById('openBook');
+        const navigation = document.getElementById('navigation');
+
+        const previousButton = document.getElementById('previous');
+        const nextButton = document.getElementById('next');
+
+        const counter = document.getElementById('counter');
+        const progressBar = document.getElementById('progressBar');
+
+        const pages = Array.from(
+            document.querySelectorAll('.page')
+        );
+
+        const book = document.getElementById('book');
+
+        let currentPage = 0;
+        let isOpened = false;
+        let isAnimating = false;
+
+        function updateNavigation() {
+
+            const current = String(currentPage + 1).padStart(2, '0');
+            const total = String(pages.length).padStart(2, '0');
+
+            counter.textContent = current + ' / ' + total;
+
+            progressBar.style.width =
+                ((currentPage + 1) / pages.length * 100) + '%';
+
+            previousButton.disabled = currentPage === 0;
+            nextButton.disabled = currentPage === pages.length - 1;
+
+            pages.forEach(function(page, index) {
+
+                const number = page.querySelector('.page-number');
+
+                if (number) {
+                    number.textContent =
+                        'PAGE ' + String(index + 1).padStart(2, '0') + ' / ' + total;
+                }
+
+            });
+        }
+
+        // OPEN THE BOOK
+
+        openButton.addEventListener('click', function() {
+
+            if (isOpened) return;
+
+            isOpened = true;
+
+            cover.classList.add('open');
+
+            window.setTimeout(function() {
+
+                navigation.classList.add('show');
+
+                updateNavigation();
+
+            }, 900);
+
+        });
+
+        // CHANGE PAGE
+
+        function goToPage(direction) {
+
+            if (!isOpened || isAnimating) return;
+
+            const nextIndex = currentPage + direction;
+
+            if (
+                nextIndex < 0 ||
+                nextIndex >= pages.length
+            ) {
+                return;
+            }
+
+            isAnimating = true;
+
+            const oldPage = pages[currentPage];
+            const newPage = pages[nextIndex];
+
+            oldPage.classList.remove('active');
+
+            oldPage.classList.add(
+                direction > 0 ? 'exit-left' : 'exit-right'
+            );
+
+            newPage.classList.remove('exit-left', 'exit-right');
+            newPage.classList.add('active');
+
+            currentPage = nextIndex;
+
+            updateNavigation();
+
+            window.setTimeout(function() {
+
+                oldPage.classList.remove('exit-left', 'exit-right');
+
+                isAnimating = false;
+
+            }, 800);
+
+        }
+
+        // PREVIOUS AND NEXT BUTTONS
+
+        previousButton.addEventListener('click', function() {
+            goToPage(-1);
+        });
+
+        nextButton.addEventListener('click', function() {
+            goToPage(1);
+        });
+
+        // KEYBOARD NAVIGATION
+
+        document.addEventListener('keydown', function(event) {
+
+            if (event.key === 'ArrowRight') {
+                goToPage(1);
+            }
+
+            if (event.key === 'ArrowLeft') {
+                goToPage(-1);
+            }
+
+        });
+
+        // SWIPE SUPPORT
+
+        let touchStartX = 0;
+
+        book.addEventListener('touchstart', function(event) {
+
+            touchStartX = event.changedTouches[0].screenX;
+
+        }, {
+            passive: true
+        });
+
+        book.addEventListener('touchend', function(event) {
+
+            const distance =
+                event.changedTouches[0].screenX - touchStartX;
+
+            if (Math.abs(distance) >= 60) {
+                goToPage(distance < 0 ? 1 : -1);
+            }
+
+        }, {
+            passive: true
+        });
+
+        // INITIALIZE
+
+        updateNavigation();
+        renderCode();
+    </script>
+
+</body>
+
+</html>
